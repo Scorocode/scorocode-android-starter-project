@@ -10,16 +10,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
-
-import java.util.concurrent.TimeUnit;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.profit_group.scorocode_sdk.Callbacks.CallbackRegisterUser;
 import ru.profit_group.scorocode_sdk.scorocode_objects.User;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -40,36 +35,31 @@ public class RegisterActivity extends AppCompatActivity {
 
         setInitialScreenState();
 
-        checkForEmptyEnter(etUserName);
-        checkForEmptyEnter(etEmail);
-        checkForEmptyEnter(etPassword);
-        checkForEmptyEnter(etRepeatPassword);
+        Action1<CharSequence> action = new Action1<CharSequence>() {
+            @Override
+            public void call(CharSequence userName) {
+                if(isAllFieldsValid()) {
+                    InputHelper.enableButton(btnRegister);
+                } else {
+                    if(InputHelper.isNotEmpty(etPassword) && InputHelper.isNotEmpty(etRepeatPassword) && !isPasswordsMatch()) {
+                        Toast.makeText(RegisterActivity.this, R.string.notMatchPasswords, Toast.LENGTH_SHORT).show();
+                    }
+                    InputHelper.disableButton(btnRegister);
+                }
+            }
+        };
+
+        InputHelper.checkForEmptyEnter(etUserName, action);
+        InputHelper.checkForEmptyEnter(etEmail, action);
+        InputHelper.checkForEmptyEnter(etPassword, action);
+        InputHelper.checkForEmptyEnter(etRepeatPassword, action);
     }
 
     private void setInitialScreenState() {
-        disableRegisterButton();
+        InputHelper.disableButton(btnRegister);
         btnLogin.setVisibility(View.GONE);
         llRepeatPassword.setVisibility(View.VISIBLE);
         llUserName.setVisibility(View.VISIBLE);
-    }
-
-    private void checkForEmptyEnter(EditText viewForCheck) {
-        RxTextView.textChanges(viewForCheck)
-                .debounce(500, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<CharSequence>() {
-                    @Override
-                    public void call(CharSequence userName) {
-                        if(isAllFieldsValid()) {
-                            enableRegisterButton();
-                        } else {
-                            if(isNotEmpty(etPassword) && isNotEmpty(etRepeatPassword) && !isPasswordsMatch()) {
-                                Toast.makeText(RegisterActivity.this, R.string.notMatchPasswords, Toast.LENGTH_SHORT).show();
-                            }
-                            disableRegisterButton();
-                        }
-                    }
-                });
     }
 
     @OnClick(R.id.btnRegister)
@@ -92,14 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private boolean isAllFieldsValid() {
-        if(isNotEmpty(etUserName) && isNotEmpty(etEmail) && isNotEmpty(etPassword) && isNotEmpty(etRepeatPassword) && isPasswordsMatch()) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isNotEmpty(EditText editText) {
-        if(!editText.getText().toString().isEmpty()) {
+        if(InputHelper.isNotEmpty(etUserName) && InputHelper.isNotEmpty(etEmail) && InputHelper.isNotEmpty(etPassword) && InputHelper.isNotEmpty(etRepeatPassword) && isPasswordsMatch()) {
             return true;
         }
         return false;
@@ -110,14 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }
         return false;
-    }
-
-    private void enableRegisterButton() {
-        btnRegister.setEnabled(true);
-    }
-
-    private void disableRegisterButton() {
-        btnRegister.setEnabled(false);
     }
 
     public static void display(Context context) {

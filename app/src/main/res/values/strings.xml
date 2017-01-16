@@ -23,4 +23,16 @@
     <string name="login_activity_user_name_edittext">Enter user name</string>
     <string name="errorDuringRegister">Error during register process.</string>
     <string name="notMatchPasswords">Passwords are not match</string>
+    <string name="documentContent">Document content:</string>
+    <string name="documentComment">Document comment:</string>
+    <string name="add_new_document">Add new document</string>
+    <string name="enter_document_name">Enter document name</string>
+    <string name="enter_document_content">Enter document content</string>
+    <string name="enter_document_comment">Enter document comment</string>
+    <string name="documentNameField">documentName</string>
+    <string name="documentContentField">documentContent</string>
+    <string name="documentCommentField">documentComment</string>
+    <string name="document_saved">Document saved successful</string>
+    <string name="error_during_document_saving">Error during saving</string>
+    <string name="will_be_created_automatically">Will be created automatically</string>
 </resources>

@@ -31,6 +31,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_gravity="right"
             style="@style/itemLabelStyle"
             android:text="@string/documentName" />
 
