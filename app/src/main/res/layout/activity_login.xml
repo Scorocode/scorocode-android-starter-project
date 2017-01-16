@@ -10,12 +10,12 @@
     tools:context="com.peterstaranchuk.scorocodetemplate.LoginActivity">
 
     <TextView
-        android:text="@string/login_activvity_login_label"
+        android:text="@string/login_activity_email_label"
         style="@style/labelStyle" />
 
     <EditText
-        android:id="@+id/etLogin"
-        android:hint="@string/login_activity_login_edittext"
+        android:id="@+id/etEmail"
+        android:hint="@string/login_activity_email_edittext"
         style="@style/editTextStyle" />
 
     <TextView
