@@ -57,4 +57,9 @@ public class LoginActivity extends AppCompatActivity {
             callbackLoginUser.onLoginFailed("", getString(R.string.wrong_data_error));
         }
     }
+
+    @OnClick(R.id.btnRegister)
+    public void onRegisterButtonClicked(View loginButton) {
+        RegisterActivity.display(this);
+    }
 }

@@ -38,6 +38,7 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 
     //RxJava
-    compile 'com.sdoward:rxgooglemaps:1.1.1@aar'
     compile 'io.reactivex:rxjava:1.2.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 }

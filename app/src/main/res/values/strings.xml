@@ -17,4 +17,10 @@
     <string name="collectionName">scorocodetemplate</string>
     <string name="errorDuringDocumentLoading">Can\'t load document list</string>
     <string name="addDocument">Add document</string>
+    <string name="login_activity_password_repeat_edittext">Repeat password</string>
+    <string name="login_activity_repeat_password_label">Repeat password</string>
+    <string name="login_activity_user_name_label">User name:</string>
+    <string name="login_activity_user_name_edittext">Enter user name</string>
+    <string name="errorDuringRegister">Error during register process.</string>
+    <string name="notMatchPasswords">Passwords are not match</string>
 </resources>
