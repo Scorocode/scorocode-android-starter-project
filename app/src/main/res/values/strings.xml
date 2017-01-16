@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ScorocodeTemplate</string>
+    <string name="login_activvity_login_label">Login:</string>
+    <string name="login_activity_login_edittext">Enter login</string>
+    <string name="login_activity_password_label">Password:</string>
+    <string name="login_activity_password_edittext">Enter password</string>
+    <string name="login_activity_button_login">Login</string>
+    <string name="login_activity_button_register">Register</string>
+</resources>
