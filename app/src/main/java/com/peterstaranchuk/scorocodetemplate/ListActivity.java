@@ -87,11 +87,11 @@ public class ListActivity extends AppCompatActivity {
 
         switch (rgChooseItems.getCheckedRadioButtonId()) {
             case R.id.rbOpen:
-                DocumentActivity.showDocument(ListActivity.this, selectedDocument.getId());
+                DocumentActivity.showDocument(ListActivity.this, selectedDocument);
                 break;
 
             case R.id.rbEdit:
-                DocumentActivity.editDocument(ListActivity.this, selectedDocument.getId());
+                DocumentActivity.editDocument(ListActivity.this, selectedDocument);
                 break;
 
             case R.id.rbRemove:
