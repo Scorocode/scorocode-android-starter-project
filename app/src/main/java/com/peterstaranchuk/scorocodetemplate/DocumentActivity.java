@@ -16,13 +16,22 @@ import ru.profit_group.scorocode_sdk.Callbacks.CallbackDocumentSaved;
 import ru.profit_group.scorocode_sdk.scorocode_objects.Document;
 import rx.functions.Action1;
 
-public class AddDocumentActivity extends AppCompatActivity {
+public class DocumentActivity extends AppCompatActivity {
 
-    @BindView(R.id.etDocumentId) EditText etDocumentId;
-    @BindView(R.id.etDocumentName) EditText etDocumentName;
-    @BindView(R.id.etDocumentContent) EditText etDocumentContent;
-    @BindView(R.id.etDocumentComment) EditText etDocumentComment;
-    @BindView(R.id.btnAddDocument) Button btnAddDocument;
+    @BindView(R.id.etDocumentId)
+    EditText etDocumentId;
+    @BindView(R.id.etDocumentName)
+    EditText etDocumentName;
+    @BindView(R.id.etDocumentContent)
+    EditText etDocumentContent;
+    @BindView(R.id.etDocumentComment)
+    EditText etDocumentComment;
+    @BindView(R.id.btnAddDocument)
+    Button btnAddDocument;
+
+    public static final String EXTRA_DOCUMENT_MODE = "EXTRA_DOCUMENT_MODE";
+    public static final String EXTRA_DOCUMENT_ID = "EXTRA_DOCUMENT_ID";
+    private Mode mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +44,7 @@ public class AddDocumentActivity extends AppCompatActivity {
         Action1<CharSequence> action = new Action1<CharSequence>() {
             @Override
             public void call(CharSequence charSequence) {
-                if(InputHelper.isNotEmpty(etDocumentName) && InputHelper.isNotEmpty(etDocumentContent)) {
+                if (InputHelper.isNotEmpty(etDocumentName) && InputHelper.isNotEmpty(etDocumentContent)) {
                     InputHelper.enableButton(btnAddDocument);
                 } else {
                     InputHelper.disableButton(btnAddDocument);
@@ -49,7 +58,7 @@ public class AddDocumentActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btnAddDocument)
-    public void onBtnAddDocumnetClicked(View addDocumentButton) {
+    public void onBtnAddDocumentClicked(View addDocumentButton) {
         Document document = new Document(getString(R.string.collectionName));
         String documentName = InputHelper.getStringFrom(etDocumentName);
         String documentContent = InputHelper.getStringFrom(etDocumentContent);
@@ -62,18 +71,37 @@ public class AddDocumentActivity extends AppCompatActivity {
         document.saveDocument(new CallbackDocumentSaved() {
             @Override
             public void onDocumentSaved() {
-                Toast.makeText(AddDocumentActivity.this, R.string.document_saved, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DocumentActivity.this, R.string.document_saved, Toast.LENGTH_SHORT).show();
                 finish();
             }
 
             @Override
             public void onDocumentSaveFailed(String errorCode, String errorMessage) {
-                Toast.makeText(AddDocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();
+                Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static void display(Context context) {
-        context.startActivity(new Intent(context, AddDocumentActivity.class));
+    private static void display(Context context, Mode mode, String documentId) {
+        Intent intent = new Intent(context, DocumentActivity.class);
+        intent.putExtra(EXTRA_DOCUMENT_ID, documentId);
+        intent.putExtra(EXTRA_DOCUMENT_MODE, mode);
+        context.startActivity(intent);
+    }
+
+    public static void createNewDocument(Context context) {
+        display(context, Mode.ADD_NEW_DOCUMENT, null);
+    }
+
+    public static void showDocument(Context context, String documentId) {
+        display(context, Mode.SHOW_DOCUMENT, documentId);
+    }
+
+    public static void editDocument(Context context, String documentId) {
+        display(context, Mode.EDIT_DOCUMENT, documentId);
+    }
+
+    private enum Mode {
+        SHOW_DOCUMENT, EDIT_DOCUMENT, ADD_NEW_DOCUMENT
     }
 }

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:context="com.peterstaranchuk.scorocodetemplate.AddDocumentActivity">
+        tools:context="com.peterstaranchuk.scorocodetemplate.DocumentActivity">
 
         <TextView
             style="@style/labelStyle"

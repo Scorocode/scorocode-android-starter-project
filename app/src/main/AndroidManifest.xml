@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListActivity" />
-        <activity android:name=".AddDocumentActivity" />
+        <activity android:name=".DocumentActivity" />
         <activity android:name=".RegisterActivity"></activity>
     </application>
 

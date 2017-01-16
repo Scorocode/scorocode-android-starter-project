@@ -35,4 +35,13 @@
     <string name="document_saved">Document saved successful</string>
     <string name="error_during_document_saving">Error during saving</string>
     <string name="will_be_created_automatically">Will be created automatically</string>
+    <string name="choose_action">Choose action</string>
+    <string name="open_document">Open document</string>
+    <string name="edit_document">Edit document</string>
+    <string name="remove_document">Remove document</string>
+    <string name="decument_removed">Document removed successful</string>
+    <string name="error_during_doc_removal">Error during document removal</string>
+    <string name="close_action">Close</string>
+    <string name="continue_action">Continue</string>
+    <string name="no_item_selected">No item selected</string>
 </resources>
