@@ -28,7 +28,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ScorocodeSdk.initWith(getString(R.string.appKey), getString(R.string.clientKey), getString(R.string.masterKey), null, null, null, null);
+        ScorocodeSdk.initWith(
+                getString(R.string.appKey),
+                getString(R.string.clientKey),
+                getString(R.string.masterKey),
+                null, null, null, null
+        );
         ButterKnife.bind(this);
 
         callbackLoginUser = new CallbackLoginUser() {

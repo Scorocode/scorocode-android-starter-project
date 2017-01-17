@@ -53,39 +53,36 @@ public class DocumentActivity extends AppCompatActivity {
                 case EDIT_DOCUMENT:
                     InputHelper.enableButton(btnAddDocument);
                     btnAddDocument.setText(R.string.change_document_info);
-                    btnAddDocument.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            final Document document = new Document(getString(R.string.collectionName));
-                            document.getDocumentById(documentInfo.getId(), new CallbackGetDocumentById() {
-                                @Override
-                                public void onDocumentFound(DocumentInfo documentInfo) {
-                                    FieldHelper fieldHelper = new FieldHelper(DocumentActivity.this);
-                                    document.updateDocument()
-                                            .set(fieldHelper.nameField(), InputHelper.getStringFrom(etDocumentName))
-                                            .set(fieldHelper.contentField(), InputHelper.getStringFrom(etDocumentContent))
-                                            .set(fieldHelper.commentField(), InputHelper.getStringFrom(etDocumentComment));
+                    btnAddDocument.setOnClickListener(v -> {
+                        final Document document = new Document(getString(R.string.collectionName));
+                        document.getDocumentById(documentInfo.getId(), new CallbackGetDocumentById() {
+                            @Override
+                            public void onDocumentFound(DocumentInfo documentInfo1) {
+                                FieldHelper fieldHelper = new FieldHelper(DocumentActivity.this);
+                                document.updateDocument()
+                                        .set(fieldHelper.nameField(), InputHelper.getStringFrom(etDocumentName))
+                                        .set(fieldHelper.contentField(), InputHelper.getStringFrom(etDocumentContent))
+                                        .set(fieldHelper.commentField(), InputHelper.getStringFrom(etDocumentComment));
 
-                                    document.saveDocument(new CallbackDocumentSaved() {
-                                        @Override
-                                        public void onDocumentSaved() {
-                                            Toast.makeText(DocumentActivity.this, R.string.document_saved, Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        }
+                                document.saveDocument(new CallbackDocumentSaved() {
+                                    @Override
+                                    public void onDocumentSaved() {
+                                        Toast.makeText(DocumentActivity.this, R.string.document_saved, Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
 
-                                        @Override
-                                        public void onDocumentSaveFailed(String errorCode, String errorMessage) {
-                                            Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                                    @Override
+                                    public void onDocumentSaveFailed(String errorCode, String errorMessage) {
+                                        Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
-                                }
+                            }
 
-                                @Override
-                                public void onDocumentNotFound(String errorCode, String errorMessage) {
-                                    Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();                                }
-                            });
-                        }
+                            @Override
+                            public void onDocumentNotFound(String errorCode, String errorMessage) {
+                                Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();                                }
+                        });
                     });
 
                     loadDocument(documentInfo);
@@ -97,14 +94,11 @@ public class DocumentActivity extends AppCompatActivity {
             }
         }
 
-        Action1<CharSequence> action = new Action1<CharSequence>() {
-            @Override
-            public void call(CharSequence charSequence) {
-                if (InputHelper.isNotEmpty(etDocumentName) && InputHelper.isNotEmpty(etDocumentContent)) {
-                    InputHelper.enableButton(btnAddDocument);
-                } else {
-                    InputHelper.disableButton(btnAddDocument);
-                }
+        Action1<CharSequence> action = charSequence -> {
+            if (InputHelper.isNotEmpty(etDocumentName) && InputHelper.isNotEmpty(etDocumentContent)) {
+                InputHelper.enableButton(btnAddDocument);
+            } else {
+                InputHelper.disableButton(btnAddDocument);
             }
         };
 
