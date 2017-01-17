@@ -1,9 +1,6 @@
 package com.peterstaranchuk.scorocodetemplate;
 
-import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -28,7 +25,7 @@ public class InputHelper {
     }
 
     public static boolean isNotEmpty(EditText editText) {
-        if(!editText.getText().toString().isEmpty()) {
+        if(editText != null && !editText.getText().toString().isEmpty()) {
             return true;
         }
         return false;
@@ -36,14 +33,20 @@ public class InputHelper {
 
     public static void enableButton(Button button) {
         //we extract this method for case if we will need to
-        //change behaviour or appearance of all disabled buttons in app
-        button.setEnabled(true);
+        //change behaviour or appearance of all enabled buttons in app
+        if(button != null) {
+            button.setEnabled(true);
+            button.setBackgroundColor(button.getResources().getColor(R.color.mainColor));
+        }
     }
 
     public static void disableButton(Button button) {
         //we extract this method for case if we will need to
         //change behaviour or appearance of all disabled buttons in app
-        button.setEnabled(false);
+        if(button != null) {
+            button.setEnabled(false);
+            button.setBackgroundColor(button.getResources().getColor(R.color.disabledButtonColor));
+        }
     }
 
     @NonNull
