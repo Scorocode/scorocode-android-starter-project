@@ -1,10 +1,11 @@
-package com.peterstaranchuk.scorocodetemplate;
+package com.peterstaranchuk.scorocodetemplate.helpers;
 
 import android.support.annotation.NonNull;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
+import com.peterstaranchuk.scorocodetemplate.R;
 
 import java.util.concurrent.TimeUnit;
 

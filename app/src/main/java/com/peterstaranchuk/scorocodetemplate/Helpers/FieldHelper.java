@@ -1,10 +1,10 @@
-package com.peterstaranchuk.scorocodetemplate;
+package com.peterstaranchuk.scorocodetemplate.helpers;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
-import butterknife.BindString;
-import butterknife.ButterKnife;
+import com.peterstaranchuk.scorocodetemplate.R;
+
 import ru.profit_group.scorocode_sdk.scorocode_objects.DocumentInfo;
 
 /**

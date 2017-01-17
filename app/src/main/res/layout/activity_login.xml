@@ -7,7 +7,7 @@
     android:padding="16dp"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.peterstaranchuk.scorocodetemplate.LoginActivity">
+    tools:context="com.peterstaranchuk.scorocodetemplate.activities.LoginActivity">
 
     <LinearLayout
         android:id="@+id/llUserName"
