@@ -29,8 +29,7 @@ import ru.profit_group.scorocode_sdk.scorocode_objects.Query;
 
 public class ListActivity extends AppCompatActivity {
 
-    @BindView(R.id.lvDocuments)
-    ListView lvDocuments;
+    @BindView(R.id.lvDocuments) ListView lvDocuments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,36 +45,51 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void refreshList() {
-        new Query(getString(R.string.collectionName))
-                .findDocuments(new CallbackFindDocument() {
-                    @Override
-                    public void onDocumentFound(final List<DocumentInfo> documentInfos) {
-                        DocumentsAdapter adapter = new DocumentsAdapter(ListActivity.this, documentInfos, R.layout.item_document);
-                        lvDocuments.setAdapter(adapter);
+        //To get all documents from collection you should:
+        //1.Create new object of Query class
+        Query query = new Query(getString(R.string.collectionName));
 
-                        lvDocuments.setOnItemClickListener((parent, view, position, id) -> {
-                            final View dialogView = LayoutInflater.from(ListActivity.this).inflate(R.layout.item_action_view, null);
-
-                            new AlertDialog.Builder(ListActivity.this)
-                                    .setTitle(R.string.choose_action)
-                                    .setView(dialogView)
-                                    .setPositiveButton(R.string.continue_action, (dialog, which) ->
-                                            performActionWithDocument(dialogView, documentInfos, position)
-                                    )
-                                    .setNegativeButton(R.string.close_action, null)
-                                    .setCancelable(false)
-                                    .show();
-                        });
-                    }
-
-                    @Override
-                    public void onDocumentNotFound(String errorCode, String errorMessage) {
-                        Toast.makeText(ListActivity.this, R.string.errorDuringDocumentLoading, Toast.LENGTH_SHORT).show();
-                    }
+        //2.Don't specify any criteria of search (so it will searching for all documents).
+        //3.Use findDocument() method of Query class
+        query.findDocuments(new CallbackFindDocument() {
+            @Override
+            public void onDocumentFound(final List<DocumentInfo> documentInfos) {
+                //As a result you have list of DocumentInfo objects
+                //All information about documents stored in this class
+                DocumentsAdapter adapter = new DocumentsAdapter(ListActivity.this, documentInfos, R.layout.item_document);
+                lvDocuments.setAdapter(adapter);
+                lvDocuments.setOnItemClickListener((parent, view, position, id) -> {
+                    showChooseActionDialog(documentInfos, position);
                 });
+            }
+
+            @Override
+            public void onDocumentNotFound(String errorCode, String errorMessage) {
+                //You can handle case if no documents were found.
+                //You can also see error code and message if searching process was failed
+                Toast.makeText(ListActivity.this, R.string.errorDuringDocumentLoading, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showChooseActionDialog(List<DocumentInfo> documentInfos, int position) {
+        final View dialogView = LayoutInflater.from(ListActivity.this).inflate(R.layout.item_action_view, null);
+
+        new AlertDialog.Builder(ListActivity.this)
+                .setTitle(R.string.choose_action)
+                .setView(dialogView)
+                .setPositiveButton(R.string.continue_action, (dialog, which) ->
+                        performActionWithDocument(dialogView, documentInfos, position)
+                )
+                .setNegativeButton(R.string.close_action, null)
+                .setCancelable(false)
+                .show();
     }
 
     private void performActionWithDocument(View dialogView, List<DocumentInfo> documentInfos, int position) {
+        //All information about document's fields and id's stored in
+        //document info class
+
         final RadioGroup rgChooseItems = ButterKnife.findById(dialogView, R.id.rgChooseItems);
         DocumentInfo selectedDocument = documentInfos.get(position);
 
@@ -98,20 +112,30 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void removeSelectedDocument(DocumentInfo clickedDocument) {
-        new Query(getString(R.string.collectionName))
-                .equalTo("_id", clickedDocument.getId())
-                .removeDocument(new CallbackRemoveDocument() {
-                    @Override
-                    public void onRemoveSucceed(ResponseRemove responseRemove) {
-                        Toast.makeText(ListActivity.this, R.string.decument_removed, Toast.LENGTH_SHORT).show();
-                        refreshList();
-                    }
+        //To remove document from server (from collection) you should:
+        //1. create new Query class. You should also specify collection name in constructor
+        Query query = new Query(getString(R.string.collectionName));
 
-                    @Override
-                    public void onRemoveFailed(String errorCode, String errorMessage) {
-                        Toast.makeText(ListActivity.this, R.string.error_during_doc_removal, Toast.LENGTH_SHORT).show();
-                    }
-                });
+        //2. find document in collection using one of Query methods
+        //(in this case we searching for document with particular id)
+        query.equalTo("_id", clickedDocument.getId());
+
+        //3. Use removeDocument() method of Query class
+        query.removeDocument(new CallbackRemoveDocument() {
+            @Override
+            public void onRemoveSucceed(ResponseRemove responseRemove) {
+                //after removable process you can perform some actions
+                Toast.makeText(ListActivity.this, R.string.decument_removed, Toast.LENGTH_SHORT).show();
+                refreshList();
+            }
+
+            @Override
+            public void onRemoveFailed(String errorCode, String errorMessage) {
+                //if remove process failed you can handle this situation.
+                //you can also see code and message of error
+                Toast.makeText(ListActivity.this, R.string.error_during_doc_removal, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public static void display(Context context) {

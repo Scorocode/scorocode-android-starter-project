@@ -61,18 +61,30 @@ public class RegisterActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnRegister)
     public void onBtnRegisterClicked(View registerButton) {
+        //To register new user (add it's info in users collection) you should
+        //1.Create new object of User class
+        User user = new User();
+
+        //2. Prepare information for user registration (it's userName, email and password)
         String userName = etUserName.getText().toString();
         String email = etEmail.getText().toString();
         String password = etPassword.getText().toString();
 
-        new User().register(userName, email, password, new CallbackRegisterUser() {
+        //3. Use register() method of User class with userName, email, password and callback
+        //as a parameters
+        user.register(userName, email, password, new CallbackRegisterUser() {
             @Override
             public void onRegisterSucceed() {
+                //if all info's format correct and there is no any user with this
+                // email in server (inside users collection)
+                //new user with this data will be created
                 finish();
             }
 
             @Override
             public void onRegisterFailed(String errorCode, String errorMessage) {
+                //if user registration failed you can handle this case.
+                // You can also see the reason why registration failed (code and message of error).
                 Toast.makeText(RegisterActivity.this, R.string.errorDuringRegister, Toast.LENGTH_SHORT).show();
             }
         });

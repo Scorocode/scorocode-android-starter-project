@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListActivity" />
-        <activity android:name=".DocumentActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".DocumentActivity" android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".RegisterActivity"/>
     </application>
 
 </manifest>

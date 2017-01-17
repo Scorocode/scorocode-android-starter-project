@@ -12,6 +12,9 @@ import ru.profit_group.scorocode_sdk.scorocode_objects.DocumentInfo;
  */
 
 public class FieldHelper {
+    //you can use helper class to store all info
+    //about field's names
+    //and to retrieve information from fields
 
     private String name;
     private String content;

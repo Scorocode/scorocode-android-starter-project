@@ -27,7 +27,7 @@ public class DocumentsAdapter extends BaseAdapter {
 
     public DocumentsAdapter(Context context, List<DocumentInfo> documents, int layoutRes) {
         this.inflater = LayoutInflater.from(context);
-        this.documents = (documents == null? new ArrayList<DocumentInfo>() : documents);
+        this.documents = (documents == null? new ArrayList<>() : documents);
         this.layoutRes = layoutRes;
     }
 
@@ -63,7 +63,9 @@ public class DocumentsAdapter extends BaseAdapter {
 
         DocumentInfo document = (DocumentInfo) getItem(position);
 
-        holder.tvDocumentId.setText(document.get("_id").toString());
+        //you can get id of document using getId() method
+        holder.tvDocumentId.setText(document.getId());
+        //you can get any field from document using get() method
         holder.tvDocumentName.setText(document.get("documentName").toString());
 
         return view;

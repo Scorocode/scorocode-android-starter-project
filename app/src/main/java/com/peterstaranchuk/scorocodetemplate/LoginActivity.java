@@ -28,6 +28,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //before you start to use any method of ScorocodeSdk you
+        //should init SDK first.
+        //For this use your keys which you can find in settings of
+        //your application in scorocode website.
+        //many keys are nullable
+        //make sure you init SDK only once
+        //reinitialization will change sessionId
+        //for more information see scorocode documentation
         ScorocodeSdk.initWith(
                 getString(R.string.appKey),
                 getString(R.string.clientKey),
@@ -36,14 +45,21 @@ public class LoginActivity extends AppCompatActivity {
         );
         ButterKnife.bind(this);
 
+        //here we define login callback
+        //we will use it callback in login() method
+        //to handle login result
         callbackLoginUser = new CallbackLoginUser() {
             @Override
             public void onLoginSucceed(ResponseLogin responseLogin) {
+                //if user account exist in server (inside users collection)
+                //when login will be successful
                 ListActivity.display(LoginActivity.this);
             }
 
             @Override
             public void onLoginFailed(String errorCode, String errorMessage) {
+                //if login failed you can handle this situation. You can also see the reason
+                //why login operation was failed
                 Toast.makeText(LoginActivity.this, getString(R.string.cant_login) + "\n" + errorMessage, Toast.LENGTH_SHORT).show();
             }
         };
@@ -56,7 +72,12 @@ public class LoginActivity extends AppCompatActivity {
         String password = etPassword.getText().toString();
 
         if(!email.isEmpty() && !password.isEmpty()) {
+            //To get if user exist in server (inside users collection) you should:
+            //1. Create new user object
             User user = new User();
+            //2. Use login() method of user class
+            //with email, password and callback (which we have defined previously)
+            //as a method's parameters
             user.login(email, password, callbackLoginUser);
         } else {
             callbackLoginUser.onLoginFailed("", getString(R.string.wrong_data_error));

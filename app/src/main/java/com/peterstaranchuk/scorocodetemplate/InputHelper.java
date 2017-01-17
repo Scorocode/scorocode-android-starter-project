@@ -1,6 +1,9 @@
 package com.peterstaranchuk.scorocodetemplate;
 
+import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -49,6 +52,13 @@ public class InputHelper {
             return editText.getText().toString();
         } else {
             return "";
+        }
+    }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        if(activity.getCurrentFocus()!=null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
         }
     }
 }
