@@ -58,8 +58,11 @@ public class ListActivity extends AppCompatActivity {
                 //All information about documents stored in this class
                 DocumentsAdapter adapter = new DocumentsAdapter(ListActivity.this, documentInfos, R.layout.item_document);
                 lvDocuments.setAdapter(adapter);
-                lvDocuments.setOnItemClickListener((parent, view, position, id) -> {
-                    showChooseActionDialog(documentInfos, position);
+                lvDocuments.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        showChooseActionDialog(documentInfos, position);
+                    }
                 });
             }
 
@@ -72,14 +75,18 @@ public class ListActivity extends AppCompatActivity {
         });
     }
 
-    private void showChooseActionDialog(List<DocumentInfo> documentInfos, int position) {
+    private void showChooseActionDialog(final List<DocumentInfo> documentInfos, final int position) {
         final View dialogView = LayoutInflater.from(ListActivity.this).inflate(R.layout.item_action_view, null);
 
         new AlertDialog.Builder(ListActivity.this)
                 .setTitle(R.string.choose_action)
                 .setView(dialogView)
-                .setPositiveButton(R.string.continue_action, (dialog, which) ->
-                        performActionWithDocument(dialogView, documentInfos, position)
+                .setPositiveButton(R.string.continue_action, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                performActionWithDocument(dialogView, documentInfos, position);
+                            }
+                        }
                 )
                 .setNegativeButton(R.string.close_action, null)
                 .setCancelable(false)

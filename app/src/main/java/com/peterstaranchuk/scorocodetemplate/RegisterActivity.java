@@ -35,14 +35,17 @@ public class RegisterActivity extends AppCompatActivity {
 
         setInitialScreenState();
 
-        Action1<CharSequence> action = userName -> {
-            if(isAllFieldsValid()) {
-                InputHelper.enableButton(btnRegister);
-            } else {
-                if(InputHelper.isNotEmpty(etPassword) && InputHelper.isNotEmpty(etRepeatPassword) && !isPasswordsMatch()) {
-                    Toast.makeText(RegisterActivity.this, R.string.notMatchPasswords, Toast.LENGTH_SHORT).show();
+        Action1<CharSequence> action = new Action1<CharSequence>() {
+            @Override
+            public void call(CharSequence charSequence) {
+                if(isAllFieldsValid()) {
+                    InputHelper.enableButton(btnRegister);
+                } else {
+                    if(InputHelper.isNotEmpty(etPassword) && InputHelper.isNotEmpty(etRepeatPassword) && !isPasswordsMatch()) {
+                        Toast.makeText(RegisterActivity.this, R.string.notMatchPasswords, Toast.LENGTH_SHORT).show();
+                    }
+                    InputHelper.disableButton(btnRegister);
                 }
-                InputHelper.disableButton(btnRegister);
             }
         };
 

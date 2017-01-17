@@ -27,7 +27,7 @@ public class DocumentsAdapter extends BaseAdapter {
 
     public DocumentsAdapter(Context context, List<DocumentInfo> documents, int layoutRes) {
         this.inflater = LayoutInflater.from(context);
-        this.documents = (documents == null? new ArrayList<>() : documents);
+        this.documents = (documents == null? new ArrayList<DocumentInfo>() : documents);
         this.layoutRes = layoutRes;
     }
 

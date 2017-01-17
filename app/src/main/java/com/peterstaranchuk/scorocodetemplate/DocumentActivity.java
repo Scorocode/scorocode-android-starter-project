@@ -53,20 +53,25 @@ public class DocumentActivity extends AppCompatActivity {
 
             case EDIT_DOCUMENT:
                 setEditDocumentMode();
+                InputHelper.setFocusTo(etDocumentName);
                 break;
 
             case ADD_NEW_DOCUMENT:
                 setAddNewDocumentMode();
+                InputHelper.setFocusTo(etDocumentName);
                 break;
         }
     }
 
     private void setAddNewDocumentMode() {
-        Action1<CharSequence> action = charSequence -> {
-            if (InputHelper.isNotEmpty(etDocumentName) && InputHelper.isNotEmpty(etDocumentContent)) {
-                InputHelper.enableButton(btnAddDocument);
-            } else {
-                InputHelper.disableButton(btnAddDocument);
+        Action1<CharSequence> action = new Action1<CharSequence>() {
+            @Override
+            public void call(CharSequence charSequence) {
+                if (InputHelper.isNotEmpty(etDocumentName) && InputHelper.isNotEmpty(etDocumentContent)) {
+                    InputHelper.enableButton(btnAddDocument);
+                } else {
+                    InputHelper.disableButton(btnAddDocument);
+                }
             }
         };
 
@@ -97,49 +102,56 @@ public class DocumentActivity extends AppCompatActivity {
     private void setEditDocumentMode() {
         InputHelper.enableButton(btnAddDocument);
         btnAddDocument.setText(R.string.change_document_info);
-        btnAddDocument.setOnClickListener(v -> {
-            //To edit document which already exist on server you should
-            //1. Create new document object and specify name of collection (where it is located) in constructor
-            final Document document = new Document(getString(R.string.collectionName));
-            //2. Get document from server by it's id. You can previously find this document
-            //with findDocument() method from Query class.
-            document.getDocumentById(getDocumentInfo().getId(), new CallbackGetDocumentById() {
-                @Override
-                public void onDocumentFound(DocumentInfo documentInfo1) {
-                    FieldHelper fieldHelper = new FieldHelper(DocumentActivity.this);
-                    //3.when document found on server you can update it's field's info
-                    //you can use any methods from Update class for this purposes
-                    document.updateDocument()
-                            .set(fieldHelper.nameField(), InputHelper.getStringFrom(etDocumentName))
-                            .set(fieldHelper.contentField(), InputHelper.getStringFrom(etDocumentContent))
-                            .set(fieldHelper.commentField(), InputHelper.getStringFrom(etDocumentComment));
-
-                    //4. After you specified all updates for document you should save it
-                    document.saveDocument(new CallbackDocumentSaved() {
-                        @Override
-                        public void onDocumentSaved() {
-                            //you can do any actions after document saved
-                            Toast.makeText(DocumentActivity.this, R.string.document_saved, Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-
-                        @Override
-                        public void onDocumentSaveFailed(String errorCode, String errorMessage) {
-                            //you can handle error if document was not saved. You can also see code and message of error.
-                            Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
-
-                @Override
-                public void onDocumentNotFound(String errorCode, String errorMessage) {
-                    //if document not found you can handle error and see it's code and message
-                    Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();                                }
-            });
+        btnAddDocument.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editDocument();
+            }
         });
 
         loadDocument(getDocumentInfo());
+    }
+
+    private void editDocument() {
+        //To edit document which already exist on server you should
+        //1. Create new document object and specify name of collection (where it is located) in constructor
+        final Document document = new Document(getString(R.string.collectionName));
+        //2. Get document from server by it's id. You can previously find this document
+        //with findDocument() method from Query class.
+        document.getDocumentById(getDocumentInfo().getId(), new CallbackGetDocumentById() {
+            @Override
+            public void onDocumentFound(DocumentInfo documentInfo1) {
+                FieldHelper fieldHelper = new FieldHelper(DocumentActivity.this);
+                //3.when document found on server you can update it's field's info
+                //you can use any methods from Update class for this purposes
+                document.updateDocument()
+                        .set(fieldHelper.nameField(), InputHelper.getStringFrom(etDocumentName))
+                        .set(fieldHelper.contentField(), InputHelper.getStringFrom(etDocumentContent))
+                        .set(fieldHelper.commentField(), InputHelper.getStringFrom(etDocumentComment));
+
+                //4. After you specified all updates for document you should save it
+                document.saveDocument(new CallbackDocumentSaved() {
+                    @Override
+                    public void onDocumentSaved() {
+                        //you can do any actions after document saved
+                        Toast.makeText(DocumentActivity.this, R.string.document_saved, Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+
+                    @Override
+                    public void onDocumentSaveFailed(String errorCode, String errorMessage) {
+                        //you can handle error if document was not saved. You can also see code and message of error.
+                        Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onDocumentNotFound(String errorCode, String errorMessage) {
+                //if document not found you can handle error and see it's code and message
+                Toast.makeText(DocumentActivity.this, R.string.error_during_document_saving, Toast.LENGTH_SHORT).show();                                }
+        });
     }
 
     private void setShowDocumentMode() {

@@ -55,10 +55,10 @@ public class InputHelper {
         }
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
-        if(activity.getCurrentFocus()!=null) {
-            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+    public static void setFocusTo(EditText editText) {
+        if(editText != null) {
+            editText.setFocusableInTouchMode(true);
+            editText.requestFocus();
         }
     }
 }

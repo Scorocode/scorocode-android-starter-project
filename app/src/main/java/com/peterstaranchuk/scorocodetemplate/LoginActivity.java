@@ -14,6 +14,7 @@ import ru.profit_group.scorocode_sdk.Callbacks.CallbackLoginUser;
 import ru.profit_group.scorocode_sdk.Responses.user.ResponseLogin;
 import ru.profit_group.scorocode_sdk.ScorocodeSdk;
 import ru.profit_group.scorocode_sdk.scorocode_objects.User;
+import rx.functions.Action1;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -44,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
                 null, null, null, null
         );
         ButterKnife.bind(this);
+        initScreenState();
 
         //here we define login callback
         //we will use it callback in login() method
@@ -64,6 +66,23 @@ public class LoginActivity extends AppCompatActivity {
             }
         };
 
+    }
+
+    private void initScreenState() {
+        InputHelper.disableButton(btnLogin);
+        Action1<CharSequence> action = new Action1<CharSequence>() {
+            @Override
+            public void call(CharSequence charSequence) {
+                if(InputHelper.isNotEmpty(etEmail) && InputHelper.isNotEmpty(etPassword)) {
+                    InputHelper.enableButton(btnLogin);
+                } else {
+                    InputHelper.disableButton(btnLogin);
+                }
+            }
+        };
+
+        InputHelper.checkForEmptyEnter(etEmail, action);
+        InputHelper.checkForEmptyEnter(etPassword, action);
     }
 
     @OnClick(R.id.btnLogin)

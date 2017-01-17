@@ -17,4 +17,5 @@
 #}
 
 #-keep class **$$ViewInjector { *; }
--keep class **$$ViewBinder { *; }
+#-keep class **$$ViewBinder { *; }
+-dontwarn java.lang.invoke.*
