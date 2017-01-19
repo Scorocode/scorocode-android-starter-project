@@ -67,7 +67,7 @@ public class DocumentsAdapter extends BaseAdapter {
 
         //you can get id of document using getId() method
         holder.tvDocumentId.setText(document.getId());
-        //you can get any field from document using get() method
+        //you can get any field content from document by fields't name using get() method
         holder.tvDocumentName.setText(document.get("documentName").toString());
 
         return view;
