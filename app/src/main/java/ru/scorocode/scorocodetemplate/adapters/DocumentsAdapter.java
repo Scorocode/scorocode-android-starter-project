@@ -1,4 +1,4 @@
-package com.peterstaranchuk.scorocodetemplate.adapters;
+package ru.scorocode.scorocodetemplate.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.peterstaranchuk.scorocodetemplate.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.profit_group.scorocode_sdk.scorocode_objects.Document;
 import ru.profit_group.scorocode_sdk.scorocode_objects.DocumentInfo;
+import ru.scorocode.scorocodetemplate.R;
 
 /**
  * Created by Peter Staranchuk.

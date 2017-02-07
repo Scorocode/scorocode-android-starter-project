@@ -1,11 +1,10 @@
-package com.peterstaranchuk.scorocodetemplate.helpers;
+package ru.scorocode.scorocodetemplate.helpers;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
-import com.peterstaranchuk.scorocodetemplate.R;
-
 import ru.profit_group.scorocode_sdk.scorocode_objects.DocumentInfo;
+import ru.scorocode.scorocodetemplate.R;
 
 /**
  * Created by Peter Staranchuk.

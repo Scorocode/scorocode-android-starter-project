@@ -1,4 +1,4 @@
-package com.peterstaranchuk.scorocodetemplate.activities;
+package ru.scorocode.scorocodetemplate.activities;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,9 +16,6 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.peterstaranchuk.scorocodetemplate.R;
-import com.peterstaranchuk.scorocodetemplate.adapters.DocumentsAdapter;
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -28,6 +25,8 @@ import ru.profit_group.scorocode_sdk.Callbacks.CallbackRemoveDocument;
 import ru.profit_group.scorocode_sdk.Responses.data.ResponseRemove;
 import ru.profit_group.scorocode_sdk.scorocode_objects.DocumentInfo;
 import ru.profit_group.scorocode_sdk.scorocode_objects.Query;
+import ru.scorocode.scorocodetemplate.R;
+import ru.scorocode.scorocodetemplate.adapters.DocumentsAdapter;
 
 public class ListActivity extends AppCompatActivity {
 
