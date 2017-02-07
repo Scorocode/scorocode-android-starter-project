@@ -1,43 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:paddingBottom="4dp"
-    android:paddingTop="4dp">
+    android:layout_height="80dp">
 
+    <!-- Bottom View Start-->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="vertical">
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-        <TextView
-            style="@style/itemLabelStyle"
-            android:text="@string/documentId" />
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/tvDocumentId"
-            style="@style/item_text" />
+            <ImageView
+                android:id="@+id/ivEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_mode_edit_black_24dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/ivDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_delete_forever_black_24dp" />
+        </RelativeLayout>
+
 
     </LinearLayout>
+    <!-- Bottom View End-->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical">
+    <!-- Surface View Start -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
 
-        <TextView
-            android:layout_gravity="right"
-            style="@style/itemLabelStyle"
-            android:text="@string/documentName" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvDocumentName"
-            style="@style/item_text" />
+            <TextView
+                style="@style/itemLabelStyle"
+                android:text="@string/documentId" />
 
-    </LinearLayout>
-</RelativeLayout>
+            <TextView
+                android:id="@+id/tvDocumentId"
+                style="@style/item_text" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/itemLabelStyle"
+                android:layout_gravity="right"
+                android:text="@string/documentName" />
+
+            <TextView
+                android:id="@+id/tvDocumentName"
+                style="@style/item_text" />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <!-- Surface View End -->
+
+
+</com.daimajia.swipe.SwipeLayout>
