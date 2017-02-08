@@ -8,9 +8,9 @@
     <string name="login_activity_button_register">Register</string>
     <string name="wrong_data_error">Check data</string>
     <string name="cant_login">Can\'t perform login action</string>
-    <string name="appKey">305ffd6cc32832f6819bf4e4f4707848</string>
-    <string name="clientKey">962066371eefc0d1850a76c7ab14c1dc</string>
-    <string name="masterKey">383499df2748bb4560745d5da67f5e41</string>
+    <string name="appKey">your api key</string>
+    <string name="clientKey">your client key</string>
+    <string name="masterKey">your master key</string>
     <string name="documents">Documents:</string>
     <string name="documentName">DocumentName:</string>
     <string name="documentId">Document id:</string>
@@ -45,4 +45,5 @@
     <string name="continue_action">Continue</string>
     <string name="no_item_selected">No item selected</string>
     <string name="change_document_info">Change</string>
+    <string name="sender_id">719305124192</string>
 </resources>

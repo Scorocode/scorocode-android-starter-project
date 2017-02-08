@@ -1,11 +1,15 @@
 package ru.scorocode.scorocodetemplate.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,9 +20,12 @@ import ru.profit_group.scorocode_sdk.ScorocodeSdk;
 import ru.profit_group.scorocode_sdk.scorocode_objects.User;
 import ru.scorocode.scorocodetemplate.R;
 import ru.scorocode.scorocodetemplate.helpers.InputHelper;
+import ru.scorocode.scorocodetemplate.services.RegistrationIntentService;
 import rx.functions.Action1;
 
 public class LoginActivity extends AppCompatActivity {
+
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     @BindView(R.id.etEmail) EditText etEmail;
     @BindView(R.id.etPassword) EditText etPassword;
@@ -48,6 +55,12 @@ public class LoginActivity extends AppCompatActivity {
         );
         ButterKnife.bind(this);
         initScreenState();
+
+        if (checkPlayServices()) {
+            // Start IntentService to register this application with GCM.
+            Intent intent = new Intent(this, RegistrationIntentService.class);
+            startService(intent);
+        }
 
         //here we define login callback
         //we will use it callback in login() method
@@ -85,6 +98,21 @@ public class LoginActivity extends AppCompatActivity {
 
         InputHelper.checkForEmptyEnter(etEmail, action);
         InputHelper.checkForEmptyEnter(etPassword, action);
+    }
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     @OnClick(R.id.btnLogin)

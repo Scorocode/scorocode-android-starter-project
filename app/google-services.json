@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "719305124192",
+    "firebase_url": "https://scorocodetemplate.firebaseio.com",
+    "project_id": "scorocodetemplate",
+    "storage_bucket": "scorocodetemplate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719305124192:android:0104a2c7bccc3649",
+        "android_client_info": {
+          "package_name": "ru.scorocode.scorocodetemplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "719305124192-e2vtp8s9cpf0tinnfniuehu18qsku9lv.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "719305124192-4n34lcvmegcr49g0g0m1gnsfs8ene8fb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApX1KGIGKQbl2Yn8qhvKnNF5zE0gyAP64"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
